@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('game', GameController::class);
+Route::resource('user', UserController::class);
+Route::resource('category', CategoryController::class);
+Route::resource('comment', CommentController::class);
+Route::resource('company', CompanyController::class);
+Route::resource('new', Controller::class);
+
+
