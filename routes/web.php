@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\DashboardController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +25,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('game', GameController::class);
-Route::resource('user', UserController::class);
-Route::resource('category', CategoryController::class);
-Route::resource('comment', CommentController::class);
-Route::resource('company', CompanyController::class);
-Route::resource('new', Controller::class);
-
+Route::resource('games', GameController::class);
+Route::resource('users', UserController::class);
+Route::resource('categories', CategoryController::class);
+Route::resource('comments', CommentController::class);
+Route::resource('companies', CompanyController::class);
+Route::resource('news', NewsController::class);
+Route::get('dashboard', [DashboardController::class, 'index']);
 
