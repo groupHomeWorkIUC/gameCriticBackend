@@ -1,2 +1,0 @@
-# gameCriticBackend
-api for gameCritic
