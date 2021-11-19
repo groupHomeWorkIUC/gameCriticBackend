@@ -21,7 +21,15 @@ class GameController extends Controller
 
     public function store(Request $request)
     {
-        //
+        try {
+            $game = new Game();
+            $game->name = $request->name;
+            $game->content = $request->content;
+            $game->save();
+            return "Game created";
+        } catch (\Exception $exception) {
+            return $exception;
+        }
     }
 
     public function show($id)
