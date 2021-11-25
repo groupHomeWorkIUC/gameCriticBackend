@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Str;
 
 
 class CategoryController extends Controller
@@ -23,11 +24,19 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         try {
-            $category = new Category();
-            $category->name = $request->name;
-            $category->content = $request->content;
-            $category->save();
-            return "Category created";
+            $checkCategory=Category::where('slug',Str::slug($request->name))->first();
+            if(!$checkCategory){
+                $category = new Category();
+                $category->name = $request->name;
+                $category->content = $request->content;
+                $category->slug=Str::slug($request->name);
+                $category->save();
+                return "Category created";
+            }
+            else{
+                return "Category exists !";
+            }
+
         } catch (\Exception $exception) {
             return $exception;
         }
@@ -52,4 +61,6 @@ class CategoryController extends Controller
     {
         //
     }
+
+
 }

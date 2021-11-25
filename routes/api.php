@@ -35,5 +35,5 @@ Route::group([
     Route::resource('companies', \App\Http\Controllers\CompanyController::class);
     Route::resource('news', \App\Http\Controllers\NewsController::class);
     Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index']);
-
+    Route::post('game-create',[GameController::class,'createGame']);
 });
