@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Game extends Migration
+class StoreGames extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class Game extends Migration
      */
     public function up()
     {
-        Schema::create('games', function (Blueprint $table) {
+        Schema::create('store_games', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('content');
-            $table->timestamp('release_date');
+            $table->unsignedBigInteger('game_id');
+            $table->unsignedBigInteger('store_id');
+            $table->foreign('game_id')->references('id')->on('games');
+            $table->foreign('store_id')->references('id')->on('stores');
             $table->timestamps();
         });
     }
