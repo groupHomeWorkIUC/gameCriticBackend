@@ -5,8 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AuthController;
 
 
 /*
@@ -25,11 +23,11 @@ Route::group([
     'middleware' => 'api',
 
 ], function ($router) {
+    Route::get('login', [AuthController::class, 'loginPage'])->name('loginPage');
     Route::post('login', [AuthController::class, 'login'])->name('login');
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
-    Route::get('deneme', [AuthController::class, 'deneme']);
     Route::resource('games', GameController::class);
     Route::resource('users', UserController::class);
     Route::resource('categories', \App\Http\Controllers\CategoryController::class);

@@ -8,6 +8,10 @@ use App\Models\Game;
 
 class GameController extends Controller
 {
+    public function __construct()
+    {
+         $this->middleware('auth:api', ['except' => ['login']]);
+    }
     public function index()
     {
         $games = Game::all();

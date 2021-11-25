@@ -13,7 +13,9 @@ class AuthController extends Controller
        // $this->middleware('auth:api', ['except' => ['login']]);
     }
 
-
+    public function loginPage(){
+        return "Giriş yapınız";
+    }
     public function login()
     {
         $credentials = request(['email', 'password']);
