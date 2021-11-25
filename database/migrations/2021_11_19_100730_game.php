@@ -17,6 +17,7 @@ class Game extends Migration
             $table->id();
             $table->string('name');
             $table->text('content');
+            $table->text('tags');
             $table->timestamp('release_date');
             $table->timestamps();
         });

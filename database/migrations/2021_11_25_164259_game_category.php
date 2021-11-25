@@ -13,7 +13,7 @@ class GameCategory extends Migration
      */
     public function up()
     {
-        Schema::create('store_games', function (Blueprint $table) {
+        Schema::create('game_category', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('game_id');
             $table->unsignedBigInteger('category_id');

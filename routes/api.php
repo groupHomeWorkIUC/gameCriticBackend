@@ -3,6 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthController;
 
 
 /*
@@ -19,13 +23,19 @@ use App\Http\Controllers\AuthController;
 Route::group([
 
     'middleware' => 'api',
-    'prefix' => 'auth'
 
 ], function ($router) {
-    Route::post('login', [AuthController::class,'login'])->name('login');
-    Route::post('logout', [AuthController::class,'logout']);
-    Route::post('refresh', [AuthController::class,'refresh']);
-    Route::post('me', [AuthController::class,'me']);
-    Route::get('deneme', [AuthController::class,'deneme']);
+    Route::post('login', [AuthController::class, 'login'])->name('login');
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('me', [AuthController::class, 'me']);
+    Route::get('deneme', [AuthController::class, 'deneme']);
+    Route::resource('games', GameController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('categories', \App\Http\Controllers\CategoryController::class);
+    Route::resource('comments', \App\Http\Controllers\CommentController::class);
+    Route::resource('companies', \App\Http\Controllers\CompanyController::class);
+    Route::resource('news', \App\Http\Controllers\NewsController::class);
+    Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index']);
 
 });
