@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Game extends Model
 {
     use HasFactory;
+
+    public function images(){
+            return $this->belongsToMany(Image::class, 'image_game');
+    }
+    public function platforms(){
+        return $this->hasOne(Platform::class, 'game_id');
+    }
+    public function company(){
+        return $this->belongsToMany(Company::class, 'company_games');
+    }
 }
