@@ -13,7 +13,7 @@ class CompanyGames extends Migration
      */
     public function up()
     {
-        Schema::create('compnay_games', function (Blueprint $table) {
+        Schema::create('company_games', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('game_id');
             $table->unsignedBigInteger('company_id');

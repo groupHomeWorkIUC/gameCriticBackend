@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\CompanyGame;
 use App\Models\GameImage;
 use App\Models\Image;
+use App\Models\Platform;
 use App\Models\Store;
 use App\Models\StoreGame;
 use Facade\FlareClient\Api;
@@ -19,7 +20,7 @@ class GameController extends Controller
 {
     public function __construct()
     {
-         $this->middleware('auth:api', ['except' => ['login']]);
+        // $this->middleware('auth:api', ['except' => ['login']]);
     }
     public function index()
     {
@@ -67,7 +68,7 @@ class GameController extends Controller
 
     public function createGame(Request $request){
 
-
+return $request->all();
         $checkGame=Game::where('slug',Str::slug($request->name))->first();
         if(!$checkGame){
 
@@ -76,15 +77,18 @@ class GameController extends Controller
             $game->content=$request->content;
             $game->tags=$request->tags;
             $game->slug=Str::slug($request->name);
+            $game->release_date=$request->release_date;
             $game->save();
 
             $platforms=new Platform();
             $platforms->game_id=$game->id;
             $platforms->pc=$request->pc;
             $platforms->playstation=$request->playstation;
-            $platforms->xbox=$request->ninendo;
+            $platforms->xbox=$request->xbox;
+            $platforms->nintendo=$request->nintendo;
             $platforms->android=$request->android;
             $platforms->ios=$request->ios;
+            $platforms->stadia=$request->stadia;
             $platforms->save();
 
 
