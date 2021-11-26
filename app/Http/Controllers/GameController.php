@@ -22,8 +22,10 @@ class GameController extends Controller
     {
         // $this->middleware('auth:api', ['except' => ['login']]);
     }
+
     public function index()
     {
+        //resim
         $games = Game::all();
         return $games;
     }
@@ -68,7 +70,6 @@ class GameController extends Controller
 
     public function createGame(Request $request){
 
-return $request->all();
         $checkGame=Game::where('slug',Str::slug($request->name))->first();
         if(!$checkGame){
 
