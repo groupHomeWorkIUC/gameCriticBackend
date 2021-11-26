@@ -70,7 +70,6 @@ class GameController extends Controller
     }
 
     public function createGame(Request $request){
-
         $checkGame=Game::where('slug',Str::slug($request->name))->first();
         if(!$checkGame){
 

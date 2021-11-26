@@ -16,6 +16,6 @@ class Game extends Model
         return $this->hasOne(Platform::class, 'game_id');
     }
     public function company(){
-        return $this->belongsToMany(Company::class, 'company_games');
+        return $this->hasOne(Company::class, 'id','company_id');
     }
 }
