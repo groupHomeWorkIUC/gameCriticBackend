@@ -13,9 +13,9 @@ class CommentNew extends Migration
      */
     public function up()
     {
-        Schema::create('comment_new', function (Blueprint $table) {
+        Schema::create('comment_news', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('game_id');
+            $table->unsignedBigInteger('new_id');
             $table->unsignedBigInteger('comment_id');
             $table->foreign('new_id')->references('id')->on('news');
             $table->foreign('comment_id')->references('id')->on('comments');

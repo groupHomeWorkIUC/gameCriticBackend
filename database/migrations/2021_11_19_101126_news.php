@@ -17,6 +17,7 @@ class News extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
+            $table->string('slug');
             $table->integer('view_count');
             $table->timestamps();
         });

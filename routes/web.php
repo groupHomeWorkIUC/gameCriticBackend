@@ -21,8 +21,13 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [DashboardController::class, 'index']);
+
+
+
+
+Route::get('/admin/news', function () {
+    return view('news');
 });
 
 Route::resource('games', GameController::class);

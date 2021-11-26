@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
+use App\Models\ImageNews;
 use Illuminate\Http\Request;
 use App\Models\News;
+use Psy\Util\Str;
 
 class NewsController extends Controller
 {
@@ -54,5 +57,34 @@ class NewsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function createNews(Request $request)
+    {
+        $checkNews=News::where('slug',\Illuminate\Support\Str::slug($request->title))->first();
+        if(!$checkNews){
+            $news=new News();
+            $news->title=$request->title;
+            $news->content=$request->content;
+            $news->view_count=0;
+            $news->slug=\Illuminate\Support\Str::slug($request->title);
+            $news->save();
+
+            foreach($request->news_images as $image_item){
+                $image=new Image();
+                $image->link=$image_item;
+                $image->save();
+
+                $imageNews= new ImageNews();
+                $imageNews->image_id=$image->id;
+                $imageNews->news_id=$news->id;
+                $imageNews->save();
+            }
+            return "News created !";
+        }
+        else{
+           return "News exists !";
+        }
+
     }
 }

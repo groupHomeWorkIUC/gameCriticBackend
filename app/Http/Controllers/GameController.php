@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Company;
 use App\Models\CompanyGame;
 use App\Models\GameImage;
+use App\Models\GamePlatform;
 use App\Models\Image;
 use App\Models\Platform;
 use App\Models\Store;
@@ -73,16 +74,10 @@ class GameController extends Controller
         $checkGame=Game::where('slug',Str::slug($request->name))->first();
         if(!$checkGame){
 
-            $checkCompany=Company::where('name',$request->company_name)->first();
+            $checkCompany=$request->company_id;
 
-            if(!$checkCompany){
-                $company=new Company();
-                $company->name=$request->company_name;
-                $company->content=$request->company_content;
-                $company->slug=Str::slug($request->company_name);
-                $company->save();
-
-
+            if($checkCompany !=""){
+                $company=Company::where('id',$checkCompany)->first();
                 $game=new Game();
                 $game->name=$request->name;
                 $game->content=$request->content;
@@ -92,49 +87,24 @@ class GameController extends Controller
                 $game->company_id=$company->id;
                 $game->save();
 
-                $platforms=new Platform();
-                $platforms->game_id=$game->id;
-                $platforms->pc=$request->pc;
-                $platforms->playstation=$request->playstation;
-                $platforms->xbox=$request->xbox;
-                $platforms->nintendo=$request->nintendo;
-                $platforms->android=$request->android;
-                $platforms->ios=$request->ios;
-                $platforms->stadia=$request->stadia;
-                $platforms->save();
+               foreach($request->platforms as $platform){
+                $gamePlatform=new GamePlatform();
+                $gamePlatform->game_id=$game->id;
+                $gamePlatform->platform_id=$platform;
+                $gamePlatform->save();
+               }
 
 
-
-
-                $checkStore=Store::where('name',$request->store_name)->first();
-                if(!$checkStore){
-                    $store=new Store();
-                    $store->name=$request->store_name;
-                    $store->image_link=$request->image_link;
-                    $store->save();
-
-                    $store_game=new StoreGame();
-                    $store_game->game_id=$game->id;
-                    $store_game->store_id=$store->id;
-                    $store_game->save();
-                }
-                else{
-                    $store_game=new StoreGame();
-                    $store_game->game_id=$game->id;
-                    $store_game->store_id=$checkStore->id;
-                    $store_game->save();
+                foreach($request->stores as $store){
+                        $store_game=new StoreGame();
+                        $store_game->game_id=$game->id;
+                        $store_game->store_id=$store;
+                        $store_game->save();
                 }
 
-                /*foreach($request->category as $category){
-                    $checkCategory=Category::where('name',$category)->first();
-
-                    if(!$checkCategory){
-                        $category=new Category();
-
-                    }
-                 */
 
                 foreach($request->game_images as $game_image){
+
                     $checkImage=Image::where('link',$game_image)->first();
 
                     if(!$checkImage){
@@ -153,88 +123,77 @@ class GameController extends Controller
                         $game_image->game_id=$game->id;
                         $game_image->save();
                     }
-
-
                 }
-
+                return "Game created";
         }
             else{
-                $game=new Game();
-                $game->name=$request->name;
-                $game->content=$request->content;
-                $game->tags=$request->tags;
-                $game->slug=Str::slug($request->name);
-                $game->release_date=$request->release_date;
-                $game->company_id=$checkCompany->id;
-                $game->save();
 
-                $platforms=new Platform();
-                $platforms->game_id=$game->id;
-                $platforms->pc=$request->pc;
-                $platforms->playstation=$request->playstation;
-                $platforms->xbox=$request->xbox;
-                $platforms->nintendo=$request->nintendo;
-                $platforms->android=$request->android;
-                $platforms->ios=$request->ios;
-                $platforms->stadia=$request->stadia;
-                $platforms->save();
+                $companyExists=Company::where('slug',Str::slug($request->company_name))->first();
 
-
-
-
-                $checkStore=Store::where('name',$request->store_name)->first();
-                if(!$checkStore){
-                    $store=new Store();
-                    $store->name=$request->store_name;
-                    $store->image_link=$request->image_link;
-                    $store->save();
-
-                    $store_game=new StoreGame();
-                    $store_game->game_id=$game->id;
-                    $store_game->store_id=$store->id;
-                    $store_game->save();
+                if($companyExists){
+                    return "Company exists !";
                 }
                 else{
-                    $store_game=new StoreGame();
-                    $store_game->game_id=$game->id;
-                    $store_game->store_id=$checkStore->id;
-                    $store_game->save();
+
+                    $company=new Company();
+                    $company->name=$request->company_name;
+                    $company->content=$request->company_content;
+                    $company->slug=Str::slug($request->company_name);
+                    $company->save();
+
+                    $game=new Game();
+                    $game->name=$request->name;
+                    $game->content=$request->content;
+                    $game->tags=$request->tags;
+                    $game->slug=Str::slug($request->name);
+                    $game->release_date=$request->release_date;
+                    $game->company_id=$company->id;
+                    $game->save();
+
+
+                    foreach($request->platforms as $platform){
+                        $gamePlatform=new GamePlatform();
+                        $gamePlatform->game_id=$game->id;
+                        $gamePlatform->platform_id=$platform;
+                        $gamePlatform->save();
+                    }
+
+                    foreach($request->stores as $store){
+                        $store_game=new StoreGame();
+                        $store_game->game_id=$game->id;
+                        $store_game->store_id=$store;
+                        $store_game->save();
+                    }
+
+
+                    foreach($request->game_images as $game_image){
+                        $checkImage=Image::where('link',$game_image)->first();
+
+                        if(!$checkImage){
+                            $image=new Image();
+                            $image->link=$game_image;
+                            $image->save();
+
+                            $game_image=new GameImage();
+                            $game_image->game_id=$game->id;
+                            $game_image->image_id=$image->id;
+                            $game_image->save();
+                        }
+                        else{
+                            $game_image=new GameImage();
+                            $game_image->image_id=$checkImage->id;
+                            $game_image->game_id=$game->id;
+                            $game_image->save();
+                        }
+
+
+                    }
+                    return "Game Created";
                 }
-
-                /*foreach($request->category as $category){
-                    $checkCategory=Category::where('name',$category)->first();
-
-                    if(!$checkCategory){
-                        $category=new Category();
-
-                    }
-                 */
-
-                foreach($request->game_images as $game_image){
-                    $checkImage=Image::where('link',$game_image)->first();
-
-                    if(!$checkImage){
-                        $image=new Image();
-                        $image->link=$game_image;
-                        $image->save();
-
-                        $game_image=new GameImage();
-                        $game_image->game_id=$game->id;
-                        $game_image->image_id=$image->id;
-                        $game_image->save();
-                    }
-                    else{
-                        $game_image=new GameImage();
-                        $game_image->image_id=$checkImage->id;
-                        $game_image->game_id=$game->id;
-                        $game_image->save();
-                    }
-
-
-                }
-
             }
-        }
+                }
+
+
         else{
             return "Game exists !";
         }

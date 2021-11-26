@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\NewsController;
 
 
 /*
@@ -36,4 +37,6 @@ Route::group([
     Route::resource('news', \App\Http\Controllers\NewsController::class);
     Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index']);
     Route::post('game-create',[GameController::class,'createGame']);
+    Route::post('news-create',[NewsController::class,'createNews']);
+
 });
