@@ -10,7 +10,7 @@ class NewsController extends Controller
 
     public function index()
     {
-        $news = News::all();
+        $news = News::with('images','comments','reactions')->get();
         return $news;
     }
 
@@ -37,7 +37,8 @@ class NewsController extends Controller
 
     public function show($id)
     {
-        //
+        $new = News::where('id',$id)->with('images','comments','reactions')->get();
+        return $new;
     }
 
     public function edit($id)

@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class News extends Model
 {
     use HasFactory;
+
+    public function images(){
+        return $this->belongsToMany(Image::class, 'image_new');
+    }
+
+    public function comments(){
+        return $this->belongsToMany(Image::class, 'comment_new');
+    }
+
+    public function reactions(){
+        return $this->belongsToMany(NewReaction::class, 'new_id');
+    }
 }
