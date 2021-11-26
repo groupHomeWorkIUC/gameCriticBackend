@@ -19,7 +19,9 @@ class Game extends Migration
             $table->text('content');
             $table->text('tags');
             $table->string('slug');
+            $table->unsignedBigInteger('company_id');
             $table->timestamp('release_date');
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
         });
     }
