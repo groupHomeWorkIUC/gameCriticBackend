@@ -13,6 +13,7 @@ class NewsController extends Controller
 
     public function index()
     {
+
         $news = News::with('images','comments','reactions')->get();
         return $news;
     }

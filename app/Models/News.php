@@ -10,14 +10,14 @@ class News extends Model
     use HasFactory;
 
     public function images(){
-        return $this->belongsToMany(Image::class, 'image_new');
+        return $this->belongsToMany(Image::class, 'image_news');
     }
 
     public function comments(){
-        return $this->belongsToMany(Image::class, 'comment_new');
+        return $this->belongsToMany(Comment::class, 'comment_news');
     }
 
     public function reactions(){
-        return $this->belongsToMany(NewReaction::class, 'new_id');
+        return $this->hasOne(NewsReaction::class, 'news_id','id');
     }
 }

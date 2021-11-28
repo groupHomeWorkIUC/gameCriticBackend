@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class NewReaction extends Migration
+class CommentNew extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class NewReaction extends Migration
      */
     public function up()
     {
-        Schema::create('new_reaction', function (Blueprint $table) {
+        Schema::create('comment_news', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('new_id');
-            $table->integer('sad');
-            $table->integer('hot');
-            $table->integer('happy');
-            $table->integer('calm');
-            $table->integer('funny');
-            $table->foreign('new_id')->references('id')->on('news');
+            $table->unsignedBigInteger('news_id');
+            $table->unsignedBigInteger('comment_id');
+            $table->foreign('news_id')->references('id')->on('news');
+            $table->foreign('comment_id')->references('id')->on('comments');
             $table->timestamps();
         });
     }

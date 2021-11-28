@@ -156,7 +156,7 @@
                         background: '#fff',
                         backdrop: `
     rgba(0,0,123,0.4)
-    url("{{asset('/gif/giphy2.gif')}}")
+    url("{{asset('/gif/giphy.gif')}}")
     right top
     no-repeat
   `
@@ -170,7 +170,7 @@
                         background: '#fff',
                         backdrop: `
     rgba(0,0,123,0.4)
-    url("{{asset('/gif/giphy2.gif')}}")
+    url("{{asset('/gif/giphy.gif')}}")
     right top
     no-repeat
   `
