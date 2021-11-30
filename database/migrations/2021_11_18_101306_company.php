@@ -17,6 +17,7 @@ class Company extends Migration
             $table->id();
             $table->string('name');
             $table->text('content');
+            $table->text('image_link');
             $table->string('slug');
             $table->timestamps();
         });
