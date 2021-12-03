@@ -16,5 +16,4 @@ class Controller extends BaseController
          $this->middleware('auth:api', ['except' => ['login']]);
     }
 
-
 }

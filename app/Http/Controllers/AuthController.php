@@ -12,16 +12,11 @@ class AuthController extends Controller
 
     public function __construct()
     {
-<<<<<<< Updated upstream
+
        $this->middleware('auth:api', ['except' => ['login']]);
     }
 
-    public function index(){
 
-=======
-        $this->middleware('auth:api', ['except' => ['login']]);
->>>>>>> Stashed changes
-    }
 
     public function loginPage(){
         return "Giriş yapınız";
