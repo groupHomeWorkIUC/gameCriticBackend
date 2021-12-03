@@ -41,7 +41,7 @@ class NewsController extends Controller
 
     public function show($id)
     {
-        $new = News::where('id',$id)->with('images','comments','reactions')->get();
+        $new = News::where('id',$id)->with('images','comments','reactions')->first();
         return $new;
     }
 

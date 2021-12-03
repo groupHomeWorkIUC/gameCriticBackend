@@ -38,5 +38,6 @@ Route::group([
     Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index']);
     Route::post('game-create',[GameController::class,'createGame']);
     Route::post('news-create',[NewsController::class,'createNews']);
+    Route::post('register',[AuthController::class,'register']);
 
 });
