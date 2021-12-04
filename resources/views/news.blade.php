@@ -139,7 +139,7 @@
             let _token   = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
-                url: "/api/news-create",
+                url: "/news-create",
                 type:"POST",
                 data:{
                     title:title,
