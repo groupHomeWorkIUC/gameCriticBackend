@@ -20,7 +20,7 @@ use App\Http\Controllers\DashboardController;
     Route::get('/', [DashboardController::class, 'createGamePage']);
     Route::view('/news-create', 'news');
     Route::post('/game-create', [GameController::class, 'createGame']);
-    Route::get('/news', [NewsController::class, 'createNewsPage']);
+    Route::get('/news', [DashboardController::class, 'createNewsPage']);
     Route::post('/news-create', [NewsController::class, 'createNews']);
     Route::get('/login', [DashboardController::class, 'loginPage'])->name('login-get');
     Route::post('/login-page', [DashboardController::class, 'login'])->name('login-post');
