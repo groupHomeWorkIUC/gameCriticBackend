@@ -24,10 +24,14 @@ class GameController extends Controller
         // $this->middleware('auth:api', ['except' => ['login']]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
         //resim
-        $games = Game::with('images')->get();
+        $games = Game::with('images');
+        if($request->company_id && $request->company_id!=''){
+            $games->where('company_id',$request->company_id);
+        }
+        $games=$games->get();
         return $games;
     }
 

@@ -24,4 +24,3 @@ use App\Http\Controllers\DashboardController;
     Route::post('/news-create', [NewsController::class, 'createNews']);
     Route::get('/login', [DashboardController::class, 'loginPage'])->name('login-get');
     Route::post('/login-page', [DashboardController::class, 'login'])->name('login-post');
-
