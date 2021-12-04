@@ -56,7 +56,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="/admin/news" class="nav-link align-middle px-0">
+                        <a href="/news" class="nav-link align-middle px-0">
                             <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline" style="color:#FFFFFF">Add News</span>
                         </a>
                     </li>

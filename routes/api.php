@@ -24,8 +24,7 @@ Route::group([
     'middleware' => 'api',
 
 ], function ($router) {
-    Route::get('login', [AuthController::class, 'loginPage'])->name('loginPage');
-    Route::post('login', [AuthController::class, 'login'])->name('login');
+    Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
@@ -36,8 +35,6 @@ Route::group([
     Route::resource('companies', \App\Http\Controllers\CompanyController::class);
     Route::resource('news', \App\Http\Controllers\NewsController::class);
     Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index']);
-    Route::post('game-create',[GameController::class,'createGame']);
-    Route::post('news-create',[NewsController::class,'createNews']);
     Route::post('register',[AuthController::class,'register']);
 
 });

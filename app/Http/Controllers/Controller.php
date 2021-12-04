@@ -10,10 +10,11 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    public $user_login=null;
 
     public function __construct()
     {
-         $this->middleware('auth:api', ['except' => ['login']]);
+  //       $this->middleware('auth:api', ['except' => ['login']]);
     }
 
 }

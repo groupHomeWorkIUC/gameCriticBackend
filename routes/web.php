@@ -2,10 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GameController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\DashboardController;
 
@@ -21,20 +17,11 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index']);
-
-
-
-
-Route::get('/admin/news', function () {
-    return view('news');
-});
-
-Route::resource('games', GameController::class);
-Route::resource('users', UserController::class);
-Route::resource('categories', CategoryController::class);
-Route::resource('comments', CommentController::class);
-Route::resource('companies', CompanyController::class);
-Route::resource('news', NewsController::class);
-Route::get('dashboard', [DashboardController::class, 'index']);
+    Route::get('/', [DashboardController::class, 'createGamePage']);
+    Route::view('/news-create', 'news');
+    Route::post('/game-create', [GameController::class, 'createGame']);
+    Route::get('/news', [NewsController::class, 'createNewsPage']);
+    Route::post('/news-create', [NewsController::class, 'createNews']);
+    Route::get('/login', [DashboardController::class, 'loginPage'])->name('login-get');
+    Route::post('/login-page', [DashboardController::class, 'login'])->name('login-post');
 

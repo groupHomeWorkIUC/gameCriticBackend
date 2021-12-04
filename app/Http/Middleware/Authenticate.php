@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use http\Env\Request;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
@@ -16,7 +17,13 @@ class Authenticate extends Middleware
     {
         if (!$request->expectsJson()) {
 
-            abort(response()->json('Unauthorized', 403));
+            if(strpos($request->url() ,'api') !== false){
+                abort(response()->json('Unauthorized', 403));
+            }
+            else{
+            return route('login-get');
+            }
         }
+
     }
 }
