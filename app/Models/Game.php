@@ -9,13 +9,18 @@ class Game extends Model
 {
     use HasFactory;
 
-    public function images(){
-            return $this->belongsToMany(Image::class, 'image_game');
+    public function images()
+    {
+        return $this->belongsToMany(Image::class, 'image_game');
     }
-    public function platforms(){
-        return $this->hasOne(Platform::class, 'game_id');
+
+    public function platforms()
+    {
+        return $this->belongsToMany(Platform::class, 'game_platforms');
     }
-    public function company(){
-        return $this->hasOne(Company::class, 'id','company_id');
+
+    public function company()
+    {
+        return $this->hasOne(Company::class, 'id', 'company_id');
     }
 }
