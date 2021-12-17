@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Image;
 use App\Models\ImageNews;
+use App\Models\IpNews;
 use Illuminate\Http\Request;
 use App\Models\News;
 use Psy\Util\Str;
+use Symfony\Component\Mime\Encoder\Rfc2231Encoder;
 
 class NewsController extends Controller
 {
@@ -39,10 +41,21 @@ class NewsController extends Controller
 
     }
 
-    public function show($id)
+    public function show(Request  $request,$id)
     {
-        $new = News::where('id',$id)->with('images','comments','reactions')->first();
-        return $new;
+        $seen=IpNews::where('ip',$request->ip())->where('news_id',$id)->first();
+        $news = News::where('id',$id)->with('images','comments','reactions')->first();
+
+        if(!$seen){
+            $ip_news=new IpNews();
+            $ip_news->ip=$request->ip();
+            $ip_news->news_id=$id;
+            $ip_news->save();
+            $news->view_count+=1;
+            $news->save();
+        }
+
+        return $news;
     }
 
     public function edit($id)
