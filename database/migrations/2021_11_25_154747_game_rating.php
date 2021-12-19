@@ -17,6 +17,7 @@ class GameRating extends Migration
             $table->id();
             $table->unsignedBigInteger('game_id');
             $table->unsignedBigInteger('user_id');
+            $table->text('content');
             $table->integer('gameplay');
             $table->integer('narrative');
             $table->integer('graphics');

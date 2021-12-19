@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\CompanyGame;
 use App\Models\GameImage;
 use App\Models\GamePlatform;
+use App\Models\GameRating;
 use App\Models\Image;
 use App\Models\Platform;
 use App\Models\Store;
@@ -203,4 +204,27 @@ class GameController extends Controller
         }
         }
 
+
+
+    public function createCommentRating(Request $request){
+
+
+        $exist=GameRating::where('user_id',$request->user_id)->where('game_id',$request->game_id)->first();
+
+        if(!$exist){
+    $gameRating=new \GameRating();
+    $gameRating->content=$request->content;
+    $gameRating->gameplay=$request->gameplay;
+    $gameRating->narrative=$request->narrative;
+    $gameRating->graphics=$request->graphics;
+    $gameRating->technical=$request->technical;
+    $gameRating->audio_design=$request->audio_design;
+    $gameRating->user_id=$request->user_id;
+    $gameRating->game_id=$request->game_id;
+    $gameRating->save();
+        }
+
+
+
+    }
 }
