@@ -57,6 +57,7 @@ class GameController extends Controller
     public function show($id)
     {
         $game=Game::where('id',$id)->with('images','platforms','company')->first();
+        $game->rating=12;
         return $game;
     }
 
