@@ -37,4 +37,11 @@ Route::group([
     Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index']);
     Route::post('register',[AuthController::class,'register']);
 
+
+
+    Route::post('news-comments',[NewsController::class,'createNewsComment']);
+    Route::post('news-reactions',[AuthController::class,'createNewsReactions']);
+    Route::post('register',[AuthController::class,'register']);
+    Route::post('register',[AuthController::class,'register']);
+
 });

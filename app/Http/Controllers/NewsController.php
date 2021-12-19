@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
+use App\Models\CommentNews;
 use App\Models\Image;
 use App\Models\ImageNews;
 use App\Models\IpNews;
+use App\Models\NewsReaction;
 use Illuminate\Http\Request;
 use App\Models\News;
 use Psy\Util\Str;
@@ -100,5 +103,74 @@ class NewsController extends Controller
            return "News exists !";
         }
 
+    }
+
+    public function createNewsComment(Request $request){
+
+        $comment=new Comment();
+        $comment->content=$request->content;
+        $comment->rating=1;
+        $comment->user_id=$request->user_id;
+        $comment->save();
+
+        $commentNews=new CommentNews();
+        $commentNews->comment_id=$comment->id;
+        $commentNews->news_id=$request->news_id;
+        $commentNews->save();
+
+    }
+
+    public function createNewsReactions(Request $request){
+
+        $exist_reactions=NewsReaction::where('news_id',$request->news_id)->where('user_id',$request->user_id)->first();
+
+        if(!$exist_reactions){
+            $news_reactions=new NewsReaction();
+            $news_reactions->sad=0;
+            $news_reactions->happy=0;
+            $news_reactions->calm=0;
+            $news_reactions->funny=0;
+            $news_reactions->news_id=$request->news_id;
+            $news_reactions->save();
+
+            if($request->sad && $request->sad==1){
+                $news_reactions->sad+=1;
+            }
+            if($request->hot && $request->hot==1){
+                $news_reactions->hot+=1;
+            }
+            if($request->happy && $request->happy==1){
+                $news_reactions->happy+1;
+            }
+            if($request->calm && $request->calm==1){
+                $news_reactions->calm+=1;
+            }
+            if($request->funny && $request->funny==1){
+                $news_reactions->funny+=1;
+            }
+
+            $news_reactions->save();
+
+        }
+
+        else{
+            if($request->sad && $request->sad==1){
+                $exist_reactions->sad+=1;
+            }
+            if($request->hot && $request->hot==1){
+                $exist_reactions->hot+=1;
+            }
+            if($request->happy && $request->happy==1){
+                $exist_reactions->happy+1;
+            }
+            if($request->calm && $request->calm==1){
+                $exist_reactions->calm+=1;
+            }
+            if($request->funny && $request->funny){
+                $exist_reactions->funny+=1;
+            }
+
+            $exist_reactions->save();
+        }
     }
 }
