@@ -120,7 +120,7 @@ class NewsController extends Controller
 
     }
 
-    public function createNewsReactions(Request $request){
+    public function crwdeateNewsReactions(Request $request){
 
         $exist_reactions=NewsReaction::where('news_id',$request->news_id)->where('user_id',$request->user_id)->first();
 
