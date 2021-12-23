@@ -47,7 +47,7 @@ class NewsController extends Controller
     public function show(Request  $request,$id)
     {
         $seen=IpNews::where('ip',$request->ip())->where('news_id',$id)->first();
-        $news = News::where('id',$id)->with('images','comments','reactions')->first();
+        $news = News::where('id',$id)->with('images','comments.user','reactions')->first();
 
         if(!$seen){
             $ip_news=new IpNews();

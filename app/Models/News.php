@@ -20,4 +20,6 @@ class News extends Model
     public function reactions(){
         return $this->hasOne(NewsReaction::class, 'news_id','id');
     }
+
+
 }
