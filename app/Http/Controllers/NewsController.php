@@ -118,6 +118,13 @@ class NewsController extends Controller
         $commentNews->news_id=$request->news_id;
         $commentNews->save();
 
+        if($comment && $commentNews){
+            return ["message"=>"success"];
+        }
+        else{
+            return ["message"=>"error"];
+        }
+
     }
 
     public function crwdeateNewsReactions(Request $request){
