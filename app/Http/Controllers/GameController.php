@@ -226,7 +226,7 @@ class GameController extends Controller
         }
         }
 
-        public function createNewsComment(Request $request){
+        public function createGameComment(Request $request){
 
             $comment=new Comment();
             $comment->content=$request->content;
