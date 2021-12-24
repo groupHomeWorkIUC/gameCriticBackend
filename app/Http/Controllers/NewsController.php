@@ -19,7 +19,12 @@ class NewsController extends Controller
     public function index(Request $request)
     {
 
-        $news = News::with('images','comments','reactions')->paginate($request->take)->get();
+        $news = News::with('images','comments','reactions');
+        if($request->order_by && $request->order_by){
+            $news->orderBy('view_count','desc');
+        }
+        $news->paginate($request->take)->get();
+
         return $news;
     }
 
