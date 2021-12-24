@@ -23,7 +23,7 @@ class NewsController extends Controller
         if($request->order_by && $request->order_by){
             $news->orderBy('view_count','desc');
         }
-        $news->paginate($request->take)->get();
+        $news->paginate($request->take);
 
         return $news;
     }
