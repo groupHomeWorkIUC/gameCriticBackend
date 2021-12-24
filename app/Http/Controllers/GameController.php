@@ -31,7 +31,7 @@ class GameController extends Controller
     public function index(Request $request)
     {
         //resim
-        $games = Game::with('images');
+        $games = Game::with('images','comments');
         if($request->company_id && $request->company_id!=''){
             $games->where('company_id',$request->company_id);
         }
@@ -40,6 +40,9 @@ class GameController extends Controller
             $games->where("name","like","%".$request->name."%");
         }
         $games=$games->get();
+        foreach($games as $game){
+            $game->rating = $this->createGameRating($game->comments);
+        }
         return $games;
     }
 
