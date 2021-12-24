@@ -32,6 +32,10 @@ class GameController extends Controller
         if($request->company_id && $request->company_id!=''){
             $games->where('company_id',$request->company_id);
         }
+        if($request->name && $request->name!="") 
+        { 
+            $games->where("name","like",$request->name);
+        }
         $games=$games->get();
         return $games;
     }
