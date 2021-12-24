@@ -34,7 +34,7 @@ class GameController extends Controller
         }
         if($request->name && $request->name!="") 
         { 
-            $games->where("name","like","%".$request->name."%")
+            $games->where("name","like","%".$request->name."%");
         }
         $games=$games->get();
         return $games;
