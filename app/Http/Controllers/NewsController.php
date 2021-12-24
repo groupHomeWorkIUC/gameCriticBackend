@@ -10,8 +10,7 @@ use App\Models\IpNews;
 use App\Models\NewsReaction;
 use Illuminate\Http\Request;
 use App\Models\News;
-use Carbon\Carbon;
-use Illuminate\Support\Carbon as SupportCarbon;
+use Illuminate\Support\Carbon;
 use Psy\Util\Str;
 use Symfony\Component\Mime\Encoder\Rfc2231Encoder;
 
