@@ -63,7 +63,7 @@ class NewsController extends Controller
             $news->view_count+=1;
             $news->save();
         }
-        $news->created_at = Carbon::parse($news->created_at)->format("d M Y");
+        $news->release_date = Carbon::parse($news->created_at)->format("d M Y");
         return $news;
     }
 
