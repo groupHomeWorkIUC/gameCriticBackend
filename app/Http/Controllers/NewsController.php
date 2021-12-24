@@ -16,10 +16,10 @@ use Symfony\Component\Mime\Encoder\Rfc2231Encoder;
 class NewsController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
 
-        $news = News::with('images','comments','reactions')->get();
+        $news = News::with('images','comments','reactions')->paginate($request->take)->get();
         return $news;
     }
 
