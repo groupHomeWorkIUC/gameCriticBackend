@@ -76,6 +76,9 @@ class GameController extends Controller
             $sum += $comment->rating;
             $index++;
         }
+        if($index == 0){
+            $index = 1;
+        }
         return $sum/$index;
     }
 
