@@ -55,7 +55,6 @@ class NewsController extends Controller
     {
         $seen=IpNews::where('ip',$request->ip())->where('news_id',$id)->first();
         $news = News::where('id',$id)->with('images','comments.user','reactions')->first();
-        $news->created_at = Carbon::parse($news->created_at)->format("d M Y");
 
         if(!$seen){
             $ip_news=new IpNews();
@@ -65,7 +64,7 @@ class NewsController extends Controller
             $news->view_count+=1;
             $news->save();
         }
-
+        $news->created_at = Carbon::parse($news->created_at)->format("d M Y");
         return $news;
     }
 

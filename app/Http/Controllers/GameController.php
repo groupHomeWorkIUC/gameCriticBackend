@@ -63,7 +63,7 @@ class GameController extends Controller
 
     public function show($id)
     {
-        $game=Game::where('id',$id)->with('images','platforms','company','comments')->first();
+        $game=Game::where('id',$id)->with('images','platforms','company','comments.user')->first();
         $game->rating=$this->createGameRating($game->comments);
         $game->release_date = Carbon::parse($game->release_date)->format("d M Y");
         return $game;
