@@ -20,10 +20,10 @@ class NewsController extends Controller
     {
 
         $news = News::with('images','comments','reactions');
-        if($request->order_by && $request->order_by){
+        if($request->order_by && $request->order_by=="true"){
             $news->orderBy('view_count','desc');
         }
-        $news->paginate($request->take);
+        $news=$news->paginate($request->take);
 
         return $news;
     }
