@@ -10,6 +10,8 @@ use App\Models\IpNews;
 use App\Models\NewsReaction;
 use Illuminate\Http\Request;
 use App\Models\News;
+use Carbon\Carbon;
+use Illuminate\Support\Carbon as SupportCarbon;
 use Psy\Util\Str;
 use Symfony\Component\Mime\Encoder\Rfc2231Encoder;
 
@@ -53,6 +55,7 @@ class NewsController extends Controller
     {
         $seen=IpNews::where('ip',$request->ip())->where('news_id',$id)->first();
         $news = News::where('id',$id)->with('images','comments.user','reactions')->first();
+        $news->created_at = Carbon::parse($news->created_at)->format("d M Y");
 
         if(!$seen){
             $ip_news=new IpNews();
@@ -114,7 +117,6 @@ class NewsController extends Controller
 
         $comment=new Comment();
         $comment->content=$request->content;
-        $comment->rating=1;
         $comment->user_id=$request->user_id;
         $comment->save();
 

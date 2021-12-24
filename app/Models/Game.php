@@ -23,4 +23,8 @@ class Game extends Model
     {
         return $this->hasOne(Company::class, 'id', 'company_id');
     }
+
+    public function comments(){
+        return $this->belongsToMany(Comment::class, 'comment_game');
+    }
 }

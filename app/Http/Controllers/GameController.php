@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Comment;
+use App\Models\CommentGame;
 use App\Models\Company;
 use App\Models\CompanyGame;
 use App\Models\GameImage;
@@ -15,6 +17,7 @@ use App\Models\StoreGame;
 use Facade\FlareClient\Api;
 use Illuminate\Http\Request;
 use App\Models\Game;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 
@@ -60,9 +63,20 @@ class GameController extends Controller
 
     public function show($id)
     {
-        $game=Game::where('id',$id)->with('images','platforms','company')->first();
-        $game->rating=12;
+        $game=Game::where('id',$id)->with('images','platforms','company','comments')->first();
+        $game->rating=$this->createGameRating($game->comments);
+        $game->release_date = Carbon::parse($game->release_date)->format("d M Y");
         return $game;
+    }
+
+    public function createGameRating($comments){
+        $sum = 0;
+        $index = 0;
+        foreach($comments as $comment){
+            $sum += $comment->rating;
+            $index++;
+        }
+        return $sum/$index;
     }
 
     public function edit($id)
@@ -207,6 +221,28 @@ class GameController extends Controller
         else{
             return "Game exists !";
         }
+        }
+
+        public function createNewsComment(Request $request){
+
+            $comment=new Comment();
+            $comment->content=$request->content;
+            $comment->rating=$request->rating;
+            $comment->user_id=$request->user_id;
+            $comment->save();
+    
+            $commentGame=new CommentGame();
+            $commentGame->comment_id=$comment->id;
+            $commentGame->game_id=$request->game_id;
+            $commentGame->save();
+    
+            if($comment && $commentGame){
+                return ["message"=>"success"];
+            }
+            else{
+                return ["message"=>"error"];
+            }
+    
         }
 
 

@@ -40,6 +40,7 @@ Route::group([
 
 
     Route::post('news-comments',[NewsController::class,'createNewsComment']);
+    Route::post('game-comments',[GameController::class,'createGameComment']);
     Route::post('news-reactions',[AuthController::class,'createNewsReactions']);
     Route::post('register',[AuthController::class,'register']);
     Route::post('register',[AuthController::class,'register']);
