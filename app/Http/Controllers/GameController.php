@@ -35,11 +35,12 @@ class GameController extends Controller
         if($request->company_id && $request->company_id!=''){
             $games->where('company_id',$request->company_id);
         }
-        if($request->name && $request->name!="") 
-        { 
+        if($request->name && $request->name!="")
+        {
             $games->where("name","like","%".$request->name."%");
         }
-        $games=$games->get();
+        $games=$games->paginate($request->take);
+
         foreach($games as $game){
             $game->rating = $this->createGameRating($game->comments);
         }
@@ -236,19 +237,19 @@ class GameController extends Controller
             $comment->rating=$request->rating;
             $comment->user_id=$request->user_id;
             $comment->save();
-    
+
             $commentGame=new CommentGame();
             $commentGame->comment_id=$comment->id;
             $commentGame->game_id=$request->game_id;
             $commentGame->save();
-    
+
             if($comment && $commentGame){
                 return ["message"=>"success"];
             }
             else{
                 return ["message"=>"error"];
             }
-    
+
         }
 
 
