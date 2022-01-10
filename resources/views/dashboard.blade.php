@@ -209,7 +209,7 @@
             let _token   = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
-                url: "/api/game-create",
+                url: "/game-create",
                 type:"POST",
                 data:{
                     name:name,
